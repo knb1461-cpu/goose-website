@@ -1,2 +1,853 @@
-# goose-website
-gooses are working
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Goose Hub | Brand Update 1.0</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #090b10;
+  --card: #171b26;
+  --text: #f5f5f7;
+  --muted: #a3aabe;
+  --accent: #a5baff;
+  --border: #303440;
+}
+
+body.light {
+  --bg: #f5f5f7;
+  --card: #ffffff;
+  --text: #171923;
+  --muted: #667085;
+  --accent: #345ac5;
+  --border: #d9dce5;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Arial, sans-serif;
+  transition: background .3s, color .3s;
+}
+
+.container {
+  max-width: 1100px;
+  padding: 24px;
+  margin: auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--text);
+  padding: 13px 20px;
+  font-size: 15px;
+  transition: .25s;
+}
+
+button:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+button.active, .primary {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: transparent;
+}
+
+.goose {
+  font-size: 34px;
+  border: none;
+  background: transparent;
+  padding: 4px;
+}
+
+.goose:hover {
+  transform: scale(1.2) rotate(-10deg);
+}
+
+.hero {
+  text-align: center;
+  padding: 75px 15px 55px;
+  background: radial-gradient(
+    ellipse at top,
+    rgba(100,125,220,.15),
+    transparent 70%
+  );
+}
+
+.tag {
+  display: inline-block;
+  padding: 9px 17px;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  background: var(--card);
+  color: var(--accent);
+  font-size: 13px;
+}
+
+h1 {
+  font-size: clamp(36px,6vw,65px);
+  letter-spacing: -2px;
+  margin: 25px 0;
+}
+
+h2 {
+  letter-spacing: -.5px;
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 20px 0 40px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 30px;
+  margin-bottom: 20px;
+  animation: fadeIn .3s ease;
+}
+
+.card p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.section-label {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.game {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 25px;
+  margin-top: 20px;
+}
+
+iframe {
+  width: 100%;
+  height: 70vh;
+  min-height: 400px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: white;
+}
+
+.coming-soon {
+  text-align: center;
+  padding: 65px 15px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.info-grid .card {
+  margin-bottom: 0;
+}
+
+.highlight {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+footer {
+  text-align: center;
+  padding: 60px 0 30px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 650px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  nav button {
+    flex: 1 1 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<header>
+
+  <div class="logo">
+
+    <button
+      class="goose"
+      onclick="honk()"
+      title="Click to HONK!"
+      aria-label="Make the goose honk">
+      🪿
+    </button>
+
+    <div>Goose<span>Hub.</span></div>
+
+  </div>
+
+  <button onclick="toggleTheme()" id="themeButton">
+    Light Mode
+  </button>
+
+</header>
+
+<!-- HERO -->
+
+<div class="hero">
+
+  <div class="tag">
+    GOOSE HUB • BRAND UPDATE 1.0
+  </div>
+
+  <h1>
+    Made by the Real<br>
+    Goose Kristoff
+  </h1>
+
+  <p>
+    Beta Testing [You're So Lucky]
+  </p>
+
+  <div class="tag">NMS ONLY</div>
+
+</div>
+
+<!-- NAVIGATION -->
+
+<nav aria-label="Main navigation">
+
+  <button class="active" onclick="showPage('home',this)">
+    Home
+  </button>
+
+  <button onclick="showPage('games',this)">
+    Games
+  </button>
+
+  <button onclick="showPage('chat',this)">
+    Chat
+  </button>
+
+  <button onclick="showPage('announcements',this)">
+    Announcements
+  </button>
+
+  <button onclick="showPage('info',this)">
+    Info
+  </button>
+
+</nav>
+
+<main>
+
+<!-- HOME -->
+
+<section id="home">
+
+  <div class="card">
+
+    <div class="section-label">WELCOME</div>
+
+    <h2>Welcome to Goose Hub.</h2>
+
+    <p>
+      The place where boredom meets its match.
+    </p>
+
+    <p>
+      Created by the Real Goose Kristoff,
+      Goose Hub is a student-made website
+      featuring games, updates, and
+      random goose-related surprises.
+    </p>
+
+    <p>
+      One website. One goose.
+      Unlimited possibilities.
+    </p>
+
+  </div>
+
+  <div class="card">
+
+    <div class="section-label">CURRENT STATUS</div>
+
+    <h2>Beta Testing</h2>
+
+    <p>
+      Goose Hub is currently undergoing
+      beta testing.
+    </p>
+
+    <p>
+      Expect new features, new games,
+      and possibly more geese.
+    </p>
+
+    <div class="tag">VERSION 1.0</div>
+
+  </div>
+
+</section>
+
+<!-- GAMES -->
+
+<section id="games" hidden>
+
+  <div class="card">
+
+    <div class="section-label">GAME LIBRARY</div>
+
+    <h2>Discover Games</h2>
+
+    <p>
+      Handpicked games for when
+      you have free time.
+    </p>
+
+    <p>
+      NMS students, enjoy responsibly
+      during permitted breaks and free time.
+    </p>
+
+    <div id="gameLibrary">
+
+      <div class="game">
+
+        <h3>Brainworx</h3>
+
+        <p>
+          A collection of games and activities.
+        </p>
+
+        <button class="primary" onclick="openBrainworx()">
+          Open Brainworx →
+        </button>
+
+      </div>
+
+    </div>
+
+    <div id="gameViewer" hidden>
+
+      <button onclick="closeGame()">
+        ← Back to Games
+      </button>
+
+      <h2>Brainworx</h2>
+
+      <p>
+        Loading inside Goose Hub.
+        Embedding depends on the website
+        and your network permissions.
+      </p>
+
+      <iframe
+        id="gameFrame"
+        title="Brainworx"
+        referrerpolicy="no-referrer"
+        allowfullscreen>
+      </iframe>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CHAT -->
+
+<section id="chat" hidden>
+
+  <div class="card coming-soon">
+
+    <div class="section-label">GOOSE CHAT</div>
+
+    <h2>Coming Soon.</h2>
+
+    <p>
+      Goose Hub Chat is currently
+      under development.
+    </p>
+
+    <p>
+      The geese are still figuring
+      out how to communicate.
+    </p>
+
+    <button class="tag" onclick="secretMessage()">
+      UNDER DEVELOPMENT
+    </button>
+
+  </div>
+
+</section>
+
+<!-- ANNOUNCEMENTS -->
+
+<section id="announcements" hidden>
+
+  <div class="card">
+
+    <div class="section-label">LATEST UPDATE</div>
+
+    <h2>Brand Update — Version 1.0</h2>
+
+    <p>
+      Welcome to the new era of Goose Hub.
+    </p>
+
+    <p>
+      We're introducing a refreshed
+      identity, updated information,
+      and a new look at what Goose Hub
+      is all about.
+    </p>
+
+    <p>
+      This update focuses on making
+      Goose Hub feel like a real
+      community project.
+    </p>
+
+    <div class="tag">BETA TESTING</div>
+
+  </div>
+
+  <div class="card">
+
+    <div class="section-label">DEVELOPER MESSAGE</div>
+
+    <h2>A Message From the Goose</h2>
+
+    <p>
+      Goose Hub started as a simple idea.
+    </p>
+
+    <p>
+      Now it has a name, a website,
+      and a goose that literally honks.
+    </p>
+
+    <p>
+      Is it perfect? No.
+      Is it a masterpiece? The goose thinks so.
+    </p>
+
+    <p>
+      More updates are planned.
+      Stay tuned.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- INFO -->
+
+<section id="info" hidden>
+
+  <div class="card">
+
+    <div class="section-label">ABOUT GOOSE HUB</div>
+
+    <h2>What Is Goose Hub?</h2>
+
+    <p>
+      Goose Hub is a student-created
+      website made for NMS students.
+    </p>
+
+    <p>
+      The idea is simple:
+      bring games, updates,
+      and entertainment together
+      in one place.
+    </p>
+
+    <p>
+      No complicated menus.
+      No boring design.
+      Just Goose Hub.
+    </p>
+
+  </div>
+
+  <div class="card">
+
+    <div class="section-label">THE ORIGIN STORY</div>
+
+    <h2>Why I Made This Website</h2>
+
+    <p>
+      Let's face it.
+      School can get boring sometimes.
+    </p>
+
+    <p>
+      Especially when you have free time
+      and you're tired of playing
+      the exact same games.
+    </p>
+
+    <p>
+      That's why I created Goose Hub.
+    </p>
+
+    <p>
+      I wanted to make a place where
+      NMS students could discover games,
+      explore something different,
+      and have a little fun
+      during their free time.
+    </p>
+
+    <p>
+      Instead of looking through
+      random websites, I wanted
+      to put everything together
+      in one organized place.
+    </p>
+
+    <p>
+      Goose Hub is also my way
+      of learning how to code,
+      build websites, and turn
+      an idea into something real.
+    </p>
+
+    <p class="highlight">
+      Created by the Real Goose Kristoff.
+      For NMS only.
+    </p>
+
+  </div>
+
+  <div class="info-grid">
+
+    <div class="card">
+
+      <div class="section-label">OUR MISSION</div>
+
+      <h2>Defeat Boredom.</h2>
+
+      <p>
+        Make free time more interesting
+        by bringing games and
+        creative ideas together.
+      </p>
+
+      <p>
+        One honk at a time.
+      </p>
+
+    </div>
+
+    <div class="card">
+
+      <div class="section-label">OUR VISION</div>
+
+      <h2>Keep Growing.</h2>
+
+      <p>
+        More games.
+        More features.
+        More surprises.
+      </p>
+
+      <p>
+        All made possible by
+        learning something new.
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:20px">
+
+    <div class="section-label">WEBSITE DETAILS</div>
+
+    <h2>Project Information</h2>
+
+    <p><strong>Website:</strong> Goose Hub</p>
+
+    <p><strong>Creator:</strong> The Real Goose Kristoff</p>
+
+    <p><strong>Version:</strong> 1.0 Brand Update</p>
+
+    <p><strong>Status:</strong> Beta Testing</p>
+
+    <p><strong>Community:</strong> NMS Only</p>
+
+    <p><strong>Future Plans:</strong>
+      More games, chat features,
+      and community updates.
+    </p>
+
+    <p><strong>Mascot:</strong>
+      A goose with an attitude.
+    </p>
+
+  </div>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+
+  Goose Hub © 2026
+
+  <p>Made by the Real Goose Kristoff</p>
+
+  <p>
+    Beta Testing • Brand Update 1.0 • NMS Only
+  </p>
+
+  <p>Honk responsibly. 🪿</p>
+
+</footer>
+
+</div>
+
+<script>
+
+// GOOSE HONK
+
+function honk() {
+
+  const AudioContextClass =
+    window.AudioContext || window.webkitAudioContext;
+
+  if (!AudioContextClass) {
+    alert("HONK HONK!");
+    return;
+  }
+
+  const audio = new AudioContextClass();
+
+  audio.resume();
+
+  const now = audio.currentTime;
+
+  function gooseNote(delay, duration, pitch) {
+
+    const oscillator = audio.createOscillator();
+    const filter = audio.createBiquadFilter();
+    const volume = audio.createGain();
+
+    oscillator.type = "sawtooth";
+
+    oscillator.frequency.setValueAtTime(
+      pitch, now + delay
+    );
+
+    oscillator.frequency.exponentialRampToValueAtTime(
+      pitch * 0.72,
+      now + delay + duration
+    );
+
+    filter.type = "lowpass";
+    filter.frequency.value = 800;
+
+    volume.gain.setValueAtTime(
+      0.001, now + delay
+    );
+
+    volume.gain.exponentialRampToValueAtTime(
+      0.2, now + delay + 0.04
+    );
+
+    volume.gain.exponentialRampToValueAtTime(
+      0.001, now + delay + duration
+    );
+
+    oscillator.connect(filter);
+    filter.connect(volume);
+    volume.connect(audio.destination);
+
+    oscillator.start(now + delay);
+    oscillator.stop(now + delay + duration);
+  }
+
+  gooseNote(0, 0.25, 390);
+  gooseNote(0.3, 0.38, 310);
+
+  setTimeout(() => audio.close(), 1100);
+}
+
+// SECRET EASTER EGG
+
+function secretMessage() {
+
+  alert(
+    "Kristoff is super lazy and he sucks at coding and this guy is not paying me 💀"
+  );
+
+}
+
+// NAVIGATION
+
+function showPage(page, button) {
+
+  document.querySelectorAll("main section").forEach(
+    section => {
+      section.hidden = section.id !== page;
+    }
+  );
+
+  document.querySelectorAll("nav button").forEach(
+    btn => btn.classList.remove("active")
+  );
+
+  button.classList.add("active");
+
+  if (page !== "games") {
+    closeGame();
+  }
+
+}
+
+// BRAINWORX
+
+function openBrainworx() {
+
+  document.getElementById("gameLibrary").hidden = true;
+  document.getElementById("gameViewer").hidden = false;
+
+  document.getElementById("gameFrame").src =
+    "https://brainworxedu.github.io/";
+
+}
+
+function closeGame() {
+
+  document.getElementById("gameViewer").hidden = true;
+  document.getElementById("gameLibrary").hidden = false;
+
+  document.getElementById("gameFrame").removeAttribute("src");
+
+}
+
+// LIGHT AND DARK MODE
+
+function toggleTheme() {
+
+  const light = document.body.classList.toggle("light");
+
+  document.getElementById("themeButton").textContent =
+    light ? "Dark Mode" : "Light Mode";
+
+  try {
+    localStorage.setItem(
+      "gooseTheme",
+      light ? "light" : "dark"
+    );
+  } catch (error) {}
+
+}
+
+// REMEMBER THEME
+
+try {
+
+  if (localStorage.getItem("gooseTheme") === "light") {
+
+    document.body.classList.add("light");
+
+    document.getElementById("themeButton").textContent =
+      "Dark Mode";
+
+  }
+
+} catch (error) {}
+
+</script>
+
+</body>
+</html>
